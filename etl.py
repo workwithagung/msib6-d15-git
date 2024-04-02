@@ -71,3 +71,13 @@ class TargetedMarketingETL(MarketingDataETL):
         self.df = self.df[self.df.amount_spent > min_total].copy()
 
         return self
+
+    def transform(self, category=None, min_total=0):
+        """
+        overide method parent untuk menambahkan proses segementasi customer
+        """
+
+        super().transform()
+        self.segment_customers(category, min_total)
+
+        return self
