@@ -18,3 +18,18 @@ class MarketingDataETL():
         self.df = pd.read_csv(file_name, **kwargs)
 
         return self
+
+    def transform(self):
+        """
+        melakukan transformasi sederhana seperti
+        - parse tanggal pembayaran
+        - trim data teks (customer id, product_category)
+        """
+
+        # remove na
+        self.df = self.df.dropna()
+
+        # parsing data tanggal
+        self.df['purchase_date'] = pd.to_datetime(self.df.purchase_date)
+
+        return self
