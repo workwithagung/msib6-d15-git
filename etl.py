@@ -48,4 +48,26 @@ class MarketingDataETL():
         return self
 
 class TargetedMarketingETL(MarketingDataETL):
-    pass
+
+    def segment_customers(self, category=None, min_total=0):
+        """
+        Berfungsi untuk memfilter data berdasarkan category tertentu. Setelah
+        data difilter, selanjutnya akan diaggregat berdasarkan customer sehingga
+        menghasilkan nilai total belanja (amount_spent).
+
+        parameters:
+        - category: string : category product yang akan dipilih
+        - min_total: strig
+        """
+
+        # filter berdasarkan kategori, jika ada
+        if category is not None:
+            self.df = self.df[self.df.product_category == category]
+
+        # aggregate amount_spent berdasarkan customer_id
+        self.df = self.df[['customer_id', 'amount_spent']].groupby('customer_id', as_index=False).sum()
+
+        # filter berdasarkan minimal nilai itotal berdasarkan argument
+        self.df = self.df[self.df.amount_spent > min_total].copy()
+
+        return self
