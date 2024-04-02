@@ -33,3 +33,16 @@ class MarketingDataETL():
         self.df['purchase_date'] = pd.to_datetime(self.df.purchase_date)
 
         return self
+
+    def store(self, path):
+        """
+        ekspor hasil pengolahan dalam bentuk pickle ke lokasi
+        yang diberikan
+
+        parameters:
+        - path : str : lokasi ekspor file
+        """
+
+        self.df.to_pickle(path)
+
+        return self
