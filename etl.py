@@ -46,3 +46,6 @@ class MarketingDataETL():
         self.df.to_pickle(path)
 
         return self
+
+class TargetedMarketingETL(MarketingDataETL):
+    pass
